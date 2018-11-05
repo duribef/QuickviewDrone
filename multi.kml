@@ -6,7 +6,7 @@
         <visibility>1</visibility>
         <description>Imagen Multiespectral MD4-1000 Esparis</description>
         <Icon>
-            <href>multi/multi.png</href>
+            <href>https://github.com/duribef/QuickviewDrone/blob/master/multi.png?raw=true</href>
         </Icon>
         <LatLonBox>
             <north>42.8666154520000049</north>
