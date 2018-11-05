@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+
+    <GroundOverlay>
+        <name>Esparis</name>
+        <visibility>1</visibility>
+        <description>Imagen Térmica MD4-1000 Esparis</description>
+        <Icon>
+            <href>temp/graytemp.png</href>
+        </Icon>
+        <LatLonBox>
+            <north>42.8666154520000049</north>
+            <south>42.8691504259999974</south>
+            <east>-8.7362049103928570</east>
+            <west>-8.7323119146071555</west>
+            <rotation>0</rotation>
+        </LatLonBox>
+        <LookAt>
+        <longitude>-8.734258413</longitude>
+        <latitude>42.86788294</latitude>
+        <altitude>0</altitude>
+        <range>700</range>
+        </LookAt>
+    </GroundOverlay>
+</kml>
+        
