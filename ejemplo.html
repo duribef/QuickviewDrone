@@ -1,0 +1,99 @@
+<!doctype html>
+  <html>
+  <head>
+  <meta charset="utf-8">
+    <title>Esri Leaflet Map </title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+      
+      <!-- Cargamos Leaflet desde CDN-->
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+      crossorigin=""/>
+        
+      <!-- Make sure you put this AFTER Leaflet's CSS -->
+      <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+      integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+      crossorigin=""></script>
+      
+      <!-- Cargamos Esri Leaflet desde CDN -->
+      <script src="https://unpkg.com/esri-leaflet@2.2.3/dist/esri-leaflet.js"
+      integrity="sha512-YZ6b5bXRVwipfqul5krehD9qlbJzc6KOGXYsDjU9HHXW2gK57xmWl2gU6nAegiErAqFXhygKIsWPKbjLPXVb2g=="
+      crossorigin=""></script>
+      
+      <!-- load Spin.js for cloudfare CND-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+      
+      <!-- load Leaflet Spin for cloudfare CND-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.Spin/1.1.0/leaflet.spin.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.Spin/1.1.0/leaflet.spin.min.js"></script>
+      
+      <style>
+      
+      html,
+      body,
+      #map {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      }
+      
+      </style>
+      
+      </head>
+      <body>
+      
+      <div id="map"></div>
+      
+      <script>
+      
+      //Atribuciones necesarias por ocupar el mapa (obligatorio?)
+      var thunAttrib = '&copy; Esri';
+      
+      // URL del mapa utilizado
+      var esriUrl = 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+      
+      //Creacion de la capa
+      var esriMap = L.tileLayer(esriUrl, {attribution: thunAttrib});
+      
+      
+      //Creacion del objeto map 
+      var map = L.map('map', {
+      attributionControl: false,
+      layers: [esriMap],
+      maxZoom: 25
+      })
+      .setView([42.86788294, -8.734258413], 17); //lat lon centrales y zoom predefinido
+          
+      map.spin(true);//Creación del spinner
+          
+      setTimeout(function () {
+          
+      //Creacion de las capas multi y termico
+      var MultiUrl ='https://github.com/duribef/QuickviewDrone/blob/master/multi.png?raw=true',
+      imageBounds = [[42.8666154520000049, -8.7362049103928570], [42.8691504259999974, -8.7323119146071555]];
+      
+      var TempUrl ='https://github.com/duribef/QuickviewDrone/blob/master/graytemp.png?raw=true',
+      imageBounds = [[42.8666154520000049, -8.7362049103928570], [42.8691504259999974, -8.7323119146071555]];
+      
+      var Multi = L.imageOverlay(MultiUrl, imageBounds).addTo(map);//Multi se deja por defecto
+      var Temp = L.imageOverlay(TempUrl, imageBounds);
+      
+      var baseMaps = { //baseMaps: exclusivos/overlayMaps: inclusivos
+      "Multiespectral": Multi,
+      "Termico": Temp
+      };
+      
+      L.control.scale({maxWidth:200}).addTo(map); //Escala del mapa
+      L.control.attribution({position: 'topright'}).addTo(map); // configuraciones de las atribuciones
+      var controlLayers  = L.control.layers(baseMaps).addTo(map);//Se crea el menu de control de capas
+      // Simulate AJAX
+      
+      map.spin(false);
+      },3000);
+          
+      </script>
+      
+      </body>
+      </html>
